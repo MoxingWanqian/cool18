@@ -106,7 +106,7 @@ class COOL18:
 def main():
 	c18 = COOL18()
 	results = c18.get_results(page_num=5)
-	pro = tqdm(results[68:], desc='Total')
+	pro = tqdm(results[121:], desc='Total')
 	for i in pro:
 		result = c18.download(novel=i[1])
 
