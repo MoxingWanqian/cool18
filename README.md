@@ -19,6 +19,7 @@
 ### 快速开始
 
 #### 使用 git clone 克隆仓库
+
     ```bash
     cd path/to/your/directory
     git clone https://github.com/MoxingWanqian/cool18.git
@@ -26,12 +27,14 @@
 
 #### 使用命令行工具
 - 使用 Python3 运行命令行工具
+
     ```bash
     cd path/to/cool18
     python3 start.py
     ```
 
 - 使用 bash 运行命令行工具
+
     ```bash
     cd path/to/cool18
     bash cool18.sh
