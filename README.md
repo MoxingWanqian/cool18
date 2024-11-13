@@ -10,11 +10,34 @@
 - Linux
 - Windows
 
-软件变化请查看：[更新日志](https://github.com/lyswhut/lx-music-mobile/blob/master/CHANGELOG.md)<br>
+软件变化请查看：[更新日志](https://riyue.fun)<br>
 
-使用常见问题请转至：[常见问题](https://lyswhut.github.io/lx-music-doc/mobile/faq)<br>
+使用常见问题请转至：[常见问题](https://riyue.fun)<br>
 
 目前本项目的原始发布地址只有**GitHub**，其他渠道均为第三方转载发布，与本项目无关！
+
+### 快速开始
+
+#### 使用 git clone 克隆仓库
+    ```bash
+    cd path/to/your/directory
+    git clone https://github.com/MoxingWanqian/cool18.git
+    ```
+
+#### 使用命令行工具
+- 使用 Python3 运行命令行工具
+    ```bash
+    cd path/to/cool18
+    python3 start.py
+    ```
+
+- 使用 bash 运行命令行工具
+    ```bash
+    cd path/to/cool18
+    bash cool18.sh
+    ```
+
+**注**：建议使用bash运行，后续可以直接使用```cool18```命令快速开始
 
 ### 贡献代码
 
@@ -29,11 +52,6 @@
 1. 参照[源码使用方法](https://riyue.fun)设置开发环境
 2. 克隆本仓库代码并切换到`dev`分支开发
 3. 提交PR
-
-<!--
-### UI界面
-
-<p><a href="https://github.com/lyswhut/lx-music-mobile"><img width="100%" src="https://github.com/lyswhut/lx-music-mobile/blob/master/doc/images/app.png" alt="lx-music UI"></a></p> -->
 
 ### 项目协议
 
