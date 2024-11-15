@@ -5,9 +5,10 @@ import requests
 from tqdm import tqdm
 from config import *
 from lxml import etree
+from datetime import datetime
 from functools import wraps
 
-def retry(max_attempts=5, delay=1):
+def retry(max_attempts=MAX_ATTEMPTS, delay=DELAY):
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
@@ -117,17 +118,22 @@ class COOL18:
 		try:
 			if len(list(result)) != len(os.listdir(f'{self.save_path}/{title}')):
 				for i in result:
-					i[2]
-			else:
-				print(False)
+					name=i[2].replace('/', '-')
+					path = self.mkdir(f'{self.save_path}/{i[0]}')
+					if f'{name}.txt' not in os.listdir(path):
+						content = self.get_content(href=i[1])
+						with open(f'{path}/{name}.txt', 'w', encoding='utf-8') as f:
+							for ct in content:
+								f.write(ct+'\r\n')
 		except FileNotFoundError:
-			print(None)
+			self.download(novel=title)
 
 	# 更新所有
 	def update_all(self, page_num=5):
 		results = self.get_results(page_num=page_num)
-		for i in results:
-			self.update_one(title=i[1])
+		pro = tqdm(results, desc='Update')
+		for i in pro:
+			self.update_one(title=i[0])
 
 	# 搜索关键词
 	def search(self):
@@ -135,11 +141,12 @@ class COOL18:
 
 	# 日志
 	def log(self, error):
-		pass
+		path = self.mkdir(path=LOG_PATH)
+		with open(f'{path}/{1}.txt', 'a+', encoding='utf-8'):
+			pass
 
 def main():
 	c18 = COOL18()
-	# c18.update_one('【17岁的夏天】')
 	c18.update_all()
 	# results = c18.get_results(page_num=5)
 	# pro = tqdm(results[347:], desc='Total')
