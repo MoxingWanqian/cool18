@@ -10,7 +10,7 @@ class CMD:
             command = input('> ')
             if command in ['quit', 'quit()', 'exit', 'exit()']:
                 break
-            elif command.split(' ')[0]:
+            elif command.split(' ')[0] == 'search':
                 pass
 
 if __name__ == '__main__':

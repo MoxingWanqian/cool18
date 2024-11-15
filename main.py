@@ -57,10 +57,12 @@ class COOL18:
 	def get_result(self, tree):
 		hrefs = tree.xpath('//li/a/@href')
 		titles = tree.xpath('//li/a/text()[2]')
-		return zip(hrefs, titles)
+		titles = [re.search('【.*?】', i).group(0) for i in titles]
+		return zip(titles, hrefs)
 	
 	# 获取完整作品
 	def get_novel(self, title:str):
+		result = []
 		novel = re.search('【.*?】', title).group(0)
 		params = {
 			'action': 'search',
@@ -72,7 +74,8 @@ class COOL18:
 		hrefs = tree.xpath('//span[@class="t_subject"]/a/@href')
 		for href in hrefs:
 			title = tree.xpath(f'string(//a[@href="{href}"])')
-			yield (novel, href, title)
+			result.append((novel, href, title))
+		return result
 
 	# 获取单章内容
 	def get_content(self, href:str):
@@ -103,12 +106,45 @@ class COOL18:
 					f.write(i+'\r\n')
 		return None
 
+	# 更新已下载
+	def update_local(self):
+		print(len(os.listdir(f'{self.save_path}')))
+
+	# 更新指定作品
+	def update_one(self, title:str):
+		result = self.get_novel(title=title)
+		title = re.search('【.*?】', title).group(0)
+		try:
+			if len(list(result)) != len(os.listdir(f'{self.save_path}/{title}')):
+				for i in result:
+					i[2]
+			else:
+				print(False)
+		except FileNotFoundError:
+			print(None)
+
+	# 更新所有
+	def update_all(self, page_num=5):
+		results = self.get_results(page_num=page_num)
+		for i in results:
+			self.update_one(title=i[1])
+
+	# 搜索关键词
+	def search(self):
+		pass
+
+	# 日志
+	def log(self, error):
+		pass
+
 def main():
 	c18 = COOL18()
-	results = c18.get_results(page_num=5)
-	pro = tqdm(results[121:], desc='Total')
-	for i in pro:
-		result = c18.download(novel=i[1])
+	# c18.update_one('【17岁的夏天】')
+	c18.update_all()
+	# results = c18.get_results(page_num=5)
+	# pro = tqdm(results[347:], desc='Total')
+	# for i in pro:
+	# 	result = c18.download(novel=i[0])
 
 if __name__ == '__main__':
 	main()
